@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+
 export default () => {
     const [title, setTitle] = useState("")
     const [price, setPrice] = useState("")
     const [description, setDescription] = useState("")
+
     const onSubmitHandler = e => {
         e.preventDefault();
         axios.post('http://localhost:8000/api/product', {
@@ -11,11 +13,14 @@ export default () => {
             price,
             description
         })
-            .then(res=>console.log(res))
+            .then(res=> {
+                console.log(res.data)
+            })
             .catch(err=>console.log(err))
     }
     return (
-        <form onSubmit={onSubmitHandler}>
+        <form className="App" onSubmit={onSubmitHandler}>
+            <h1>Project Manager</h1>
             <p>
                 <label>Title&nbsp;&nbsp;</label>
                 <input type="text" name="title" onChange={(e)=>setTitle(e.target.value)} value={title}/>
@@ -28,7 +33,8 @@ export default () => {
                 <label>Description&nbsp;&nbsp;</label>
                 <input type="text" name="description" onChange={(e)=>setDescription(e.target.value)} value={description}/>
             </p>
-            <input type="submit"/>
+            <input type="submit" value="Create"/>
+            <p>______________________________________________________________________________</p>
         </form>
     )
 }

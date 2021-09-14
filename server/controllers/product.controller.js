@@ -16,3 +16,11 @@ module.exports.getAllProduct = (req, res) => {
         .then(allProduct => res.json(allProduct))
         .catch(err => res.json(err))
 }
+
+module.exports.getOneProduct = (req, res) => {
+    const {id} = req.params
+    console.log("controller, id: ", id)
+    Product.findOne({_id : id})
+        .then(oneProduct => res.json(oneProduct))
+        .catch(err => res.json(err))
+}
