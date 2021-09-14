@@ -19,8 +19,21 @@ module.exports.getAllProduct = (req, res) => {
 
 module.exports.getOneProduct = (req, res) => {
     const {id} = req.params
-    console.log("controller, id: ", id)
     Product.findOne({_id : id})
         .then(oneProduct => res.json(oneProduct))
+        .catch(err => res.json(err))
+}
+
+module.exports.editProduct = (req, res) => {
+    const {id} = req.params
+    Product.findByIdAndUpdate({_id: id}, req.body, {new:true})
+        .then(editOneProduct => res.json(editOneProduct))
+        .catch(err => res.json(err))
+}
+
+module.exports.deleteProduct = (req, res) => {
+    const {id} = req.params
+    Product.findByIdAndDelete({_id : id})
+        .then(deleteProduct => res.json(deleteProduct))
         .catch(err => res.json(err))
 }
